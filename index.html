@@ -1,0 +1,78 @@
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AddTime</title>
+  <style type="text/css">
+    main {
+      width: 966px;
+      margin: 0 auto;
+    }
+    
+    .inTime, .outTime {
+      width: 100%;
+      height: 40vh;
+      resize: none;
+      margin-bottom: 1vh;
+    }
+
+    .input_area {
+      display: flex;
+      width: 32%;
+      justify-content: space-between;
+      margin-bottom: 1vh;
+    }
+  </style>
+
+</head>
+<body>
+  <main>
+    <div class="input_area">
+      <input type="number" id="inputTime" >
+      <button class="change" id="addButton">Сhange the time</button>
+    </div>
+    <textarea id="in" class="inTime" cols="30" rows="10">Сopy the program here ...</textarea>
+    <textarea id="out" class="outTime" cols="30" rows="10">Result ...</textarea>
+  </main>
+
+  <script>
+    window.onload = init;
+
+    function init(){
+      let button = document.getElementById("addButton");
+      button.onclick = handleButtonClick;
+    }
+
+    function handleButtonClick() {
+      document.getElementById('out').value = '';
+      let allText = document.getElementById("in").value.split('\n').filter(str=>str.length>1);
+      let shiftTime = getShiftTime();
+      let subStr = ':'
+
+      if (shiftTime > 0) {
+        for (let i = 0; i < allText.length; i++) {
+          let pos = allText[i].indexOf(subStr,0);
+          if (pos === 1 | pos === 2) {
+            let str = allText[i].slice(pos);
+            let currentTime = allText[i].slice(0, pos);
+            let actulalTime = Number(currentTime) + Number(shiftTime);
+            if (actulalTime > 23) {
+              actulalTime = actulalTime - 24;
+            }
+            document.getElementById('out').value += actulalTime + str + '\n';
+          }
+          else {
+            document.getElementById('out').value += allText[i] + '\n';
+          }
+        }
+      }  
+    }
+
+    function getShiftTime(){
+      let input = document.getElementById("inputTime");
+      return input.value;
+    }
+  </script>
+</body>
+</html>
