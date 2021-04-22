@@ -32,8 +32,8 @@
       <input type="number" id="inputTime" >
       <button class="change" id="addButton">Сhange the time</button>
     </div>
-    <textarea id="in" class="inTime" cols="30" rows="10">Сopy the program here ...</textarea>
-    <textarea id="out" class="outTime" cols="30" rows="10">Result ...</textarea>
+    <textarea id="in" class="inTime" cols="30" rows="10" placeholder="Сopy the program here ..."></textarea>
+    <textarea id="out" class="outTime" cols="30" rows="10" placeholder="Result ..."></textarea>
   </main>
 
   <script>
@@ -66,6 +66,9 @@
             document.getElementById('out').value += allText[i] + '\n';
           }
         }
+      }
+      else {
+        alert('Значение должно быть больше 0');
       }  
     }
 
