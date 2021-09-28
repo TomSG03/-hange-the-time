@@ -48,12 +48,12 @@
       document.getElementById('out').value = '';
       let allText = document.getElementById("in").value.split('\n').filter(str=>str.length>1);
       let shiftTime = getShiftTime();
-      let subStr = ':'
+      let subStr = ':.'
 
       if (shiftTime > 0) {
         for (let i = 0; i < allText.length; i++) {
-          let pos = allText[i].indexOf(subStr,0);
-          if (pos === 1 | pos === 2) {
+          let pos = getPos(allText[i], subStr);
+          if (pos !== -1) {
             let str = allText[i].slice(pos);
             let currentTime = allText[i].slice(0, pos);
             let actulalTime = Number(currentTime) + Number(shiftTime);
@@ -71,7 +71,18 @@
         alert('Значение должно быть больше 0');
       }  
     }
-
+    
+    function getPos(str, subStr) {
+      let position;
+      for (let index = 0; index < str.length; index++) {
+        position = str.indexOf(subStr[index], 0);
+        if (position === 1 | position === 2) {
+          return position          
+        }
+      }
+      return -1;
+    }
+    
     function getShiftTime(){
       let input = document.getElementById("inputTime");
       return input.value;
